@@ -47,18 +47,10 @@ export class PlayerController extends Component {
     }
   }
 
-  //   onMouseUp(event: EventMouse) {
-  //     if (event.getButton() === 0) {
-  //       this.jumpByStep(100);
-  //     } else if (event.getButton() === 2) {
-  //       this.jumpByStep(400);
-  //     }
-  //   }
-
   onPressKey(event: EventKeyboard) {
     switch (event.keyCode) {
       case 32: {
-        this._startRace = !this._startRace;
+        this._startRace = true;
         this.jumpByStep();
         break;
       }
@@ -85,6 +77,7 @@ export class PlayerController extends Component {
     if (this._curPos.y <= -400) {
       return;
     }
+
     Vec3.add(this._targetPos, this._curPos, new Vec3(0, -200, 0));
     this.node.setPosition(this._targetPos);
   }
@@ -115,21 +108,12 @@ export class PlayerController extends Component {
       Vec3.add(this._targetPos, this._curPos, new Vec3(this._speed, 0, 0));
 
       if (this.FireAnim) {
-        this.FireAnim.getState('AnimaFire').speed = 3.5;
+        this.FireAnim.getState('AnimaFire').speed = 2.5;
         this.FireAnim.play('AnimaFire');
       }
 
       this._isMoving = true;
     }
-    // if (this.FireAnim) {
-    //   this.FireAnim.play('AnimaFire');
-
-    //   if (step === 100) {
-    //     this.FireAnim.play('AnimaFire');
-    //   } else if (step === 400) {
-    //     this.FireAnim.play('AnimaFire2');
-    //   }
-    // }
   }
 
   onOnceJumpEnd() {

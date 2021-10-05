@@ -229,13 +229,33 @@
       "__uuid__": "6c8ed3ac-7834-4d02-ad1c-4d52a1fa3c05",
       "__expectedType__": "cc.Prefab"
     },
-    "roadLength": 50,
     "playerCtrl": {
       "__id__": 7
     },
     "startMenu": {
       "__id__": 17
     },
+    "obstaclePrfb": {
+      "__uuid__": "471b818f-8625-435c-9c39-6b09c5b2c6ac",
+      "__expectedType__": "cc.Prefab"
+    },
+    "speddupPrfb": {
+      "__uuid__": "78978fd1-fa73-4e0f-8270-c1855b337fce",
+      "__expectedType__": "cc.Prefab"
+    },
+    "speeduptilePrfb": {
+      "__uuid__": "714437d5-3d10-4096-9720-24a2f9282c34",
+      "__expectedType__": "cc.Prefab"
+    },
+    "waterBluePrfb": {
+      "__uuid__": "483b7cb9-7ed1-45c9-8de4-33a682ccf0de",
+      "__expectedType__": "cc.Prefab"
+    },
+    "waterRedPrfb": {
+      "__uuid__": "17e287c5-7646-4357-b58e-4d7464868e30",
+      "__expectedType__": "cc.Prefab"
+    },
+    "roadLength": 50,
     "_id": "cf843BumZHHZ5ln6XHOrn+"
   },
   {
@@ -1016,8 +1036,8 @@
       "__id__": 5
     },
     "component": "",
-    "_componentId": "",
-    "handler": "",
+    "_componentId": "295e0hsTIROabyZPrmXPC0P",
+    "handler": "onStartButtonClicked",
     "customEventData": ""
   },
   {
