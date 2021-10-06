@@ -6,14 +6,12 @@ import {
   Node,
   CCInteger,
   Vec3,
-  PhysicsSystem2D,
-  random,
 } from 'cc';
 import { PlayerController } from './PlayerController';
 const { ccclass, property } = _decorator;
 
 enum BlockType {
-  BT_NONE,
+  NONE_ITEM,
   OBSTACLE_ITEM,
   SPEEDUP_ITEM,
   SPEEDUP_TILE,
@@ -39,7 +37,7 @@ enum LaneRace {
 export class GameManager extends Component {
   @property({ type: Prefab })
   public cubePrfb: Prefab | null = null;
-  public raceLength: number = 50;
+  public raceLength: number = 12;
 
   @property({ type: PlayerController })
   public playerCtrl: PlayerController = null;
@@ -118,7 +116,7 @@ export class GameManager extends Component {
 
     this._road = [];
     // startPos
-    this._road.push(BlockType.BT_NONE);
+    this._road.push(BlockType.NONE_ITEM);
     for (let i = 1; i < this.roadLength; i++) {
       this._road.push(Math.trunc(Math.random() * 7));
     }
@@ -163,8 +161,7 @@ export class GameManager extends Component {
 
     let block: Node | null = null;
     switch (type) {
-      case BlockType.BT_NONE:
-        block = instantiate(this.obstaclePrfb);
+      case BlockType.NONE_ITEM:
         break;
       case BlockType.OBSTACLE_ITEM:
         block = instantiate(this.obstaclePrfb);

@@ -30,7 +30,7 @@ export class PlayerController extends Component {
   private _startRace: boolean = false;
   private _speed: number = 60;
   private _curRunTime: number = 0;
-  private _runTime: number = 0.05;
+  private _runTime: number = 0.1;
   private _curRunSpeed: number = 0;
   private _curPos: Vec3 = new Vec3();
   private _deltaPos: Vec3 = new Vec3(0, 0, 0);
@@ -105,7 +105,7 @@ export class PlayerController extends Component {
       Vec3.add(this._targetPos, this._curPos, new Vec3(this._speed, 0, 0));
 
       if (this.FireAnim) {
-        this.FireAnim.getState('AnimaFire').speed = 2.5;
+        this.FireAnim.getState('AnimaFire').speed = 1.5;
         this.FireAnim.play('AnimaFire');
       }
 
