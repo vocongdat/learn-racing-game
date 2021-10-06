@@ -255,6 +255,10 @@
       "__uuid__": "17e287c5-7646-4357-b58e-4d7464868e30",
       "__expectedType__": "cc.Prefab"
     },
+    "scoreupPrfb": {
+      "__uuid__": "f5f988ff-2c92-4b25-9ed3-1a88a8f264a2",
+      "__expectedType__": "cc.Prefab"
+    },
     "roadLength": 50,
     "_id": "cf843BumZHHZ5ln6XHOrn+"
   },
@@ -385,7 +389,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 320.51612903225805,
+    "_orthoHeight": 330.3765690376569,
     "_near": 1,
     "_far": 2000,
     "_color": {

@@ -28,7 +28,7 @@ export class PlayerController extends Component {
   public FireAnim: Animation | null = null;
 
   private _startRace: boolean = false;
-  private _speed: number = 400;
+  private _speed: number = 60;
   private _curRunTime: number = 0;
   private _runTime: number = 0.05;
   private _curRunSpeed: number = 0;
@@ -50,17 +50,14 @@ export class PlayerController extends Component {
   onPressKey(event: EventKeyboard) {
     switch (event.keyCode) {
       case 32: {
-        this._startRace = true;
-        this.jumpByStep();
+        this._startRace = !this._startRace;
         break;
       }
       case 40: {
-        this._startRace = !this._startRace;
         this.moveDown();
         break;
       }
       case 38: {
-        this._startRace = !this._startRace;
         this.moveUp();
         break;
       }
@@ -78,7 +75,7 @@ export class PlayerController extends Component {
       return;
     }
 
-    Vec3.add(this._targetPos, this._curPos, new Vec3(0, -200, 0));
+    Vec3.add(this._targetPos, this._curPos, new Vec3(50, -200, 0));
     this.node.setPosition(this._targetPos);
   }
 
@@ -93,7 +90,7 @@ export class PlayerController extends Component {
       return;
     }
 
-    Vec3.add(this._targetPos, this._curPos, new Vec3(0, 200, 0));
+    Vec3.add(this._targetPos, this._curPos, new Vec3(50, 200, 0));
     this.node.setPosition(this._targetPos);
   }
 
@@ -125,9 +122,10 @@ export class PlayerController extends Component {
       this._curRunTime += deltaTime;
       if (this._curRunTime > this._runTime) {
         // end
-        this.node.setPosition(this._targetPos);
-        this._startRace = false;
+        this._startRace = true;
         this.onOnceJumpEnd();
+        this.jumpByStep();
+        this.node.setPosition(this._targetPos);
       } else {
         // tween
         this.node.getPosition(this._curPos);
