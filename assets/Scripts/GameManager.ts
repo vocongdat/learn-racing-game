@@ -6,6 +6,7 @@ import {
   Node,
   CCInteger,
   Vec3,
+  Label,
 } from 'cc';
 import { PlayerController } from './PlayerController';
 const { ccclass, property } = _decorator;
@@ -37,7 +38,7 @@ enum LaneRace {
 export class GameManager extends Component {
   @property({ type: Prefab })
   public cubePrfb: Prefab | null = null;
-  public raceLength: number = 12;
+  public raceLength: number = 50;
 
   @property({ type: PlayerController })
   public playerCtrl: PlayerController = null;
@@ -64,7 +65,17 @@ export class GameManager extends Component {
 
   @property({ type: CCInteger })
   public roadLength: Number = 50;
+
+  @property(Label)
+  public scoreLabel: Label = null!;
+
+  public blood: number = 1000;
+
   private _road: number[] = [];
+
+  private _checkResult: number = null;
+
+  private _score: number = 0;
 
   start() {
     this.curState = GameState.GS_INIT;
@@ -91,9 +102,14 @@ export class GameManager extends Component {
         if (this.startMenu) {
           this.startMenu.active = false;
         }
+        if (this.scoreLabel) {
+          //  reset the number of steps to 0
+          this.scoreLabel.string = 'Score: 0';
+        }
         setTimeout(() => {
           if (this.playerCtrl) {
             this.playerCtrl.setInputActive(true);
+            this.checkResult();
           }
         }, 0.1);
         break;
@@ -152,6 +168,10 @@ export class GameManager extends Component {
 
   onStartButtonClicked() {
     this.curState = GameState.GS_PLAYING;
+    console.log(
+      'size',
+      this.playerCtrl.node.children[1]._uiProps.uiTransformComp.contentSize
+    );
   }
 
   spawnBlockByType(type: BlockType) {
@@ -184,5 +204,63 @@ export class GameManager extends Component {
     }
 
     return block;
+  }
+
+  checkResult() {
+    const { width, height } =
+      this.playerCtrl.node.children[1]._uiProps.uiTransformComp.contentSize;
+    const midWidth = width / 2;
+    const midHeight = height / 2;
+
+    const childrenBlock = this.node.children;
+
+    const indexObject = childrenBlock.findIndex((block) => {
+      const { x: xPlayer, y: yPlayer } = this.playerCtrl._curPos;
+      const { x: xObject, y: yObject } = block.position;
+      return (
+        xPlayer - midWidth <= xObject &&
+        xObject <= xPlayer + midWidth &&
+        yPlayer - midHeight <= yObject &&
+        yObject <= yPlayer + midHeight
+      );
+    });
+    if (this._checkResult != indexObject) {
+      const curSpeed = this.playerCtrl._speed;
+      if (indexObject >= 0) {
+        switch (this._road[indexObject]) {
+          case BlockType.NONE_ITEM:
+            break;
+          case BlockType.OBSTACLE_ITEM:
+            this.blood = this.blood - 100;
+            console.log('Blood', this.blood);
+            break;
+          case BlockType.SPEEDUP_ITEM:
+            this.playerCtrl._speed = curSpeed + 20;
+            console.log(curSpeed);
+            break;
+          case BlockType.SPEEDUP_TILE:
+            this.playerCtrl._speed = curSpeed + 40;
+            break;
+          case BlockType.WATER_BLUE_TILE:
+            if (curSpeed >= 40) this.playerCtrl._speed = curSpeed - 20;
+            break;
+          case BlockType.WATER_RED_TILE:
+            if (curSpeed >= 40) this.playerCtrl._speed = curSpeed - 40;
+            break;
+          case BlockType.SCOREUP_ITEM:
+            this._score = this._score + 100;
+            this.scoreLabel.string = `Score: ${this._score}`;
+            break;
+        }
+      }
+      this._checkResult = indexObject;
+    }
+  }
+
+  update() {
+    if (!this.startMenu.active) {
+      // if(this.playerCtrl._curPos != this.playerCtrl)
+      this.checkResult();
+    }
   }
 }

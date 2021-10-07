@@ -4,5 +4,8 @@
     "designResolution": {
       "fitHeight": false
     }
+  },
+  "physics": {
+    "sleepThreshold": 1
   }
 }
