@@ -168,10 +168,6 @@ export class GameManager extends Component {
 
   onStartButtonClicked() {
     this.curState = GameState.GS_PLAYING;
-    console.log(
-      'size',
-      this.playerCtrl.node.children[1]._uiProps.uiTransformComp.contentSize
-    );
   }
 
   spawnBlockByType(type: BlockType) {
@@ -232,22 +228,27 @@ export class GameManager extends Component {
             break;
           case BlockType.OBSTACLE_ITEM:
             this.blood = this.blood - 100;
-            console.log('Blood', this.blood);
+            console.warn(this.blood);
             break;
           case BlockType.SPEEDUP_ITEM:
             this.playerCtrl._speed = curSpeed + 20;
-            console.log(curSpeed);
+            console.warn('SPEEDUP_ITEM');
             break;
           case BlockType.SPEEDUP_TILE:
             this.playerCtrl._speed = curSpeed + 40;
+            console.warn('SPEEDUP_TILE');
             break;
           case BlockType.WATER_BLUE_TILE:
+            console.warn('WATER_BLUE_TILE');
             if (curSpeed >= 40) this.playerCtrl._speed = curSpeed - 20;
+
             break;
           case BlockType.WATER_RED_TILE:
+            console.warn('WATER_RED_TILE');
             if (curSpeed >= 40) this.playerCtrl._speed = curSpeed - 40;
             break;
           case BlockType.SCOREUP_ITEM:
+            console.warn('SCOREUP_ITEM');
             this._score = this._score + 100;
             this.scoreLabel.string = `Score: ${this._score}`;
             break;
@@ -258,9 +259,11 @@ export class GameManager extends Component {
   }
 
   update() {
-    if (!this.startMenu.active) {
-      // if(this.playerCtrl._curPos != this.playerCtrl)
+    if (this.playerCtrl._isMoving) {
       this.checkResult();
+      if (this.blood <= 0) {
+        this.playerCtrl._startRace = false;
+      }
     }
   }
 }

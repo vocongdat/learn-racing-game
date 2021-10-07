@@ -35,7 +35,7 @@ export class PlayerController extends Component {
   public _curPos: Vec3 = new Vec3();
   private _deltaPos: Vec3 = new Vec3(0, 0, 0);
   private _targetPos: Vec3 = new Vec3();
-  private _isMoving = false;
+  public _isMoving = false;
 
   start() {}
 
@@ -105,8 +105,8 @@ export class PlayerController extends Component {
       Vec3.add(this._targetPos, this._curPos, new Vec3(this._speed, 0, 0));
 
       if (this.FireAnim) {
-        this.FireAnim.getState('AnimaFire').speed = 0.75;
-        this.FireAnim.play('AnimaFire');
+        this.FireAnim.getState('Run').speed = 0.75;
+        this.FireAnim.play('Run');
       }
 
       this._isMoving = true;
