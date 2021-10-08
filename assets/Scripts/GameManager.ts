@@ -229,6 +229,7 @@ export class GameManager extends Component {
           case BlockType.OBSTACLE_ITEM:
             this.blood = this.blood - 100;
             console.warn(this.blood);
+
             break;
           case BlockType.SPEEDUP_ITEM:
             this.playerCtrl._speed = curSpeed + 20;

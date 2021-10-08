@@ -26,11 +26,17 @@ const { ccclass, property } = _decorator;
 export class PlayerController extends Component {
   @property({ type: Animation })
   public FireAnim: Animation | null = null;
+  @property({ type: Animation })
+  public FireAnim1: Animation | null = null;
+  @property({ type: Animation })
+  public FireAnim2: Animation | null = null;
+  @property({ type: Animation })
+  public FireAnim3: Animation | null = null;
 
   private _startRace: boolean = false;
   public _speed: number = 60;
   private _curRunTime: number = 0;
-  private _runTime: number = 0.1;
+  private _runTime: number = 0.2;
   private _curRunSpeed: number = 0;
   public _curPos: Vec3 = new Vec3();
   private _deltaPos: Vec3 = new Vec3(0, 0, 0);
@@ -105,8 +111,8 @@ export class PlayerController extends Component {
       Vec3.add(this._targetPos, this._curPos, new Vec3(this._speed, 0, 0));
 
       if (this.FireAnim) {
-        this.FireAnim.getState('Run').speed = 0.75;
-        this.FireAnim.play('Run');
+        this.FireAnim.getState('Obstacle collision').speed = 0.75;
+        this.FireAnim.play('Obstacle collision');
       }
 
       this._isMoving = true;
