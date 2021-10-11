@@ -112,12 +112,11 @@ export class PlayerController extends Component {
       Vec3.add(this._targetPos, this._curPos, new Vec3(this._speed, 0, 0));
 
       if (this.FireAnim) {
-        this.FireAnim.getState('Run-1').speed = 1.2;
-        AnimationClip.WrapMode.Reverse;
+        this.FireAnim.getState('Run-1').speed = 0.8;
         // this.FireAnim.getState('Obstacle collision').delay = 0;
         // this.FireAnim.getState('Obstacle collision').duration = 1.4;
         this.FireAnim.play('Run-1');
-        console.log(this.FireAnim.getState('Run-1'));
+        AnimationClip.WrapMode.PingPong;
       }
 
       this._isMoving = true;
